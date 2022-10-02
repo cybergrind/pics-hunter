@@ -117,7 +117,7 @@ const downloadElement = async clickContext => {
 
     const downloadOptions = {
         url: imageUrl,
-        conflictAction: 'prompt',
+        conflictAction: 'uniquify',
         saveAs: false,
     };
 
