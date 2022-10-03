@@ -1,0 +1,31 @@
+# .eslintrc.yml
+---
+parser: babel-eslint
+
+env:
+  browser: true
+  es6: true
+
+globals:
+  chrome: true
+
+rules:
+  # Override default settings
+  eqeqeq: warn
+  strict: 0
+  # Disable rules
+  no-console: 0
+  # Enable rules
+  no-undef: 1
+  indent:
+    - error
+    - 2
+  # Set rule options
+  quotes:
+    - error
+    - single
+    - avoid-escape
+  # Set rule options
+  semi:
+    - error
+    - never
