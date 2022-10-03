@@ -16,6 +16,7 @@ const yaGetImage = async () => {
             width: img.width,
             url,
         });
+        img.onerror = () => reject(undefined);
         img.src = url;
     });
 
@@ -27,19 +28,29 @@ const yaGetImage = async () => {
         if (!switcher) {
             return box.children[0].href;
         }
+        const sidebar = document.querySelector('.MMSidebar');
+        const yPos = sidebar.scrollTop;
         switcher.click();
         const best = document.querySelector('.MMViewerButtons-ImageSizesList').children[0].children[0];
-        return best.href;
+        const url = best.href;
+        switcher.click();
+        if (yPos > 0) {
+            sidebar.scrollTo(0, yPos);
+        }
+        return url;
     };
 
     const wrapWithTimeout = async (f, args = [], timeout = 3000) => {
-        const resp = await Promise.race([
-            f(...args),
-            new Promise((resolve, reject) => {
-                setTimeout(() => resolve(undefined), timeout);
-            }),
-        ]);
-        return resp;
+        try {
+            const resp = await Promise.race([
+                f(...args),
+                new Promise((resolve, reject) => {
+                    setTimeout(() => resolve(undefined), timeout);
+                }),
+            ]);
+            return resp;
+        } catch (error) {
+        }
     };
 
     const getMeta = async (url) => {
