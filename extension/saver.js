@@ -40,7 +40,9 @@ const yaGetImage = async () => {
     const url = best.href
     switcher.click()
     if (yPos > 0) {
-      sidebar.scrollTo(0, yPos)
+      setTimeout(() => {
+        sidebar.scrollTop = yPos
+      }, 100)
     }
     return url
   }
