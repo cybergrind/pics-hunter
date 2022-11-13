@@ -162,4 +162,5 @@ const createMenuItems = () => {
 }
 
 chrome.runtime.onInstalled.addListener(createMenuItems)
+chrome.runtime.onStartup.addListener(createMenuItems)
 chrome.contextMenus.onClicked.addListener(downloadElement)
