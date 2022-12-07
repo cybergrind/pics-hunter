@@ -33,11 +33,37 @@ const yaGetImage = async () => {
     if (!switcher) {
       return box.children[0].href
     }
+
+    const images = []
+    const itemBox = {
+      sizeText: box.querySelector('button').textContent,  // 1920x1080
+      url: box.children[0].href
+    }
+    images.push(itemBox)
+
     const sidebar = document.querySelector('.MMSidebar')
     const yPos = sidebar.scrollTop
     switcher.click()
-    const best = document.querySelector('.MMViewerButtons-ImageSizesList').children[0].children[0]
-    const url = best.href
+
+    const iList = document.querySelector('ul.OpenImageButton-List')
+    for (let li of iList.children) {
+      const item = {
+        sizeText: li.textContent,  // 1920x1080
+        url: li.querySelector('a').href
+      }
+      images.push(item)
+    }
+
+    const best = images.reduce((prev, curr) => {
+      const prevSize = prev.sizeText.split('x').map(Number)
+      const currSize = curr.sizeText.split('x').map(Number)
+      if (prevSize[0] * prevSize[1] > currSize[0] * currSize[1]) {
+        return prev
+      }
+      return curr
+    })
+
+    const url = best.url
     switcher.click()
     if (yPos > 0) {
       setTimeout(() => {
@@ -162,5 +188,13 @@ const createMenuItems = () => {
 }
 
 chrome.runtime.onInstalled.addListener(createMenuItems)
-chrome.runtime.onStartup.addListener(createMenuItems)
+chrome.runtime.onStartup.addListener(() => {
+  setTimeout(createMenuItems, 1000)
+})
 chrome.contextMenus.onClicked.addListener(downloadElement)
+
+chrome.alarms.create({ when: Date.now() + 1000 })
+
+chrome.alarms.onAlarm.addListener(() => {
+  createMenuItems
+})

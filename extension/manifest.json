@@ -2,12 +2,13 @@
   "name": "PicsHunter",
   "description": "Faster save pics",
   "key": "pooj5sheocip9on5Hea5Fe7thu2ue3oo",
-  "version": "0.3",
+  "version": "0.5.0",
   "manifest_version": 3,
   "background": {
     "service_worker": "saver.js"
   },
   "permissions": [
+    "alarms",
     "storage",
     "contextMenus",
     "downloads",
