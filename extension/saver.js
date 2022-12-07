@@ -48,20 +48,22 @@ const yaGetImage = async () => {
     const iList = document.querySelector('ul.OpenImageButton-List')
     for (let li of iList.children) {
       const item = {
-        sizeText: li.textContent,  // 1920x1080
+        sizeText: li.textContent,  // 1920×1080
         url: li.querySelector('a').href
       }
       images.push(item)
     }
 
     const best = images.reduce((prev, curr) => {
-      const prevSize = prev.sizeText.split('x').map(Number)
-      const currSize = curr.sizeText.split('x').map(Number)
+      const prevSize = prev.sizeText.split('×').map(Number)
+      const currSize = curr.sizeText.split('×').map(Number)
       if (prevSize[0] * prevSize[1] > currSize[0] * currSize[1]) {
         return prev
       }
       return curr
     })
+    console.log('images: ', images)
+    console.log('best: ', best)
 
     const url = best.url
     switcher.click()
