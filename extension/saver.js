@@ -41,7 +41,7 @@ const yaGetImage = async () => {
     }
     images.push(itemBox)
 
-    const sidebar = document.querySelector('.MMSidebar')
+    const sidebar = document.querySelector('.MMViewerButtons-ImageSizes') || document.querySelector('.MMSidebar')
     const yPos = sidebar.scrollTop
     switcher.click()
 
@@ -133,7 +133,9 @@ const getYaImageUrl = async url => {
   const resp = out[0].result
   console.log('Got resp:')
   console.log(resp)
-  return resp.url
+  if (resp) {
+    return resp.url
+  }
 }
 
 const downloadElement = async clickContext => {
