@@ -45,7 +45,11 @@ const yaGetImage = async () => {
     const yPos = sidebar.scrollTop
     switcher.click()
 
+    // wait 100 ms
+    await new Promise(resolve => setTimeout(resolve, 100))
     const iList = document.querySelector('ul.OpenImageButton-List')
+    console.log('iList:', iList)
+
     for (let li of iList.children) {
       const item = {
         sizeText: li.textContent,  // 1920×1080
